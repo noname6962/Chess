@@ -1,7 +1,7 @@
 def kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje):
     xx, yy = 0, 0
-    if vec_x > 1 or vec_y > 1:
-        while xx <= vec_x - 2 or yy <= vec_y - 2:
+    if vec_x > 1 or vec_x < -1 or vec_y > 1 or vec_y < -1:
+        while xx <= vec_x - 2 or xx >= vec_x + 2 or yy <= vec_y - 2 or yy >= vec_y + 2:
             if vec_x > 0 and vec_x > xx:
                 xx += 1
             elif vec_x < 0 and vec_x < xx:

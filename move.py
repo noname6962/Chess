@@ -1,12 +1,11 @@
 import legalnosc
 import szach
 def move(biale_figury, czarne_figury, biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, tura, moves):
-    biale_check = biale_figury
-    czarne_check = czarne_figury
-    if szach.check_szach(biale_check, czarne_check, biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, tura, moves) != 1:
-        legality = legalnosc.check_check(biale_figury, czarne_figury, biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, tura, moves)
 
-        if legality == 1 or legality == 2:
+    legality = legalnosc.check_check(biale_figury, czarne_figury, biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, tura, moves)
+
+    if legality == 1 or legality == 2:
+        if szach.check_szach(biale_figury, czarne_figury, biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, tura, moves) != 1:
             if tura % 2 == 0:
                 for i, figura in enumerate(biale_figury):
                     # Convert tuple to list
@@ -57,4 +56,4 @@ def move(biale_figury, czarne_figury, biale_pozycje, czarne_pozycje, x, y, vec_x
                                 biala_figura_list[1] = 0
                                 biale_figury[j] = tuple(biala_figura_list)
                                 break
-            return 1
+        return 1
