@@ -56,4 +56,4 @@ def move(biale_figury, czarne_figury, biale_pozycje, czarne_pozycje, x, y, vec_x
                                 biala_figura_list[1] = 0
                                 biale_figury[j] = tuple(biala_figura_list)
                                 break
-        return 1
+            return 1
