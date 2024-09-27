@@ -1,5 +1,3 @@
-import pygame
-
 def przesuniecie(press_x, press_y, release_x, release_y):
     press_x = press_x // 60
     press_y = press_y // 60

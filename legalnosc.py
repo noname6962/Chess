@@ -44,8 +44,10 @@ def check_check(biale_figury, czarne_figury, biale_pozycje, czarne_pozycje, x, y
         return 1
     elif nazwa == 'G' and check_G(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor):
         return 1
-    elif nazwa == 'K' and check_K(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor):
+    elif nazwa == 'K' and check_K(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor, moves) == 1:
         return 1
+    elif nazwa == 'K' and check_K(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor, moves) == 3:
+        return 3
     elif nazwa == 'D' and check_D(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor):
         return 1
 
@@ -133,17 +135,39 @@ def check_G(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor):
                     return 1
 
 
-def check_K(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor):
+def check_K(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor,moves):
     if kolor == 'biale':
         #ruchy krola
         if abs(vec_x) <= 1 and abs(vec_y) <= 1:
             if (x+vec_x, y+vec_y) not in biale_pozycje:
                 return 1
+        if not any(move[0] == 'biale' and move[1] == 'K' for move in moves):
+            if vec_x == 2 and vec_y == 0:
+                if not any(move[0] == 'biale' and move[1] == 'W' and move[2] == 7 for move in moves):
+                    if (6, 0) not in biale_pozycje and (5, 0) not in biale_pozycje and (4, 0) not in biale_pozycje:
+                        if (6, 0) not in czarne_pozycje and (5, 0) not in czarne_pozycje and (4, 0) not in czarne_pozycje:
+                            return 3
+            if vec_x == -2 and vec_y == 0:
+                if not any(move[0] == 'biale' and move[1] == 'W' and move[2] == 0 for move in moves):
+                    if (1, 0) not in biale_pozycje and (2, 0) not in biale_pozycje:
+                        if (1, 0) not in czarne_pozycje and (2, 0) not in czarne_pozycje:
+                            return 3
     if kolor == 'czarne':
         #ruchy krola
         if abs(vec_x) <= 1 and abs(vec_y) <= 1:
             if (x+vec_x, y+vec_y) not in czarne_pozycje:
                 return 1
+        if not any(move[0] == 'czarne' and move[1] == 'K' for move in moves):
+            if vec_x == 2 and vec_y == 0:
+                if not any(move[0] == 'czarne' and move[1] == 'W' and move[2] == 7 for move in moves):
+                    if (6, 7) not in czarne_pozycje and (5, 7) not in czarne_pozycje and (4, 7) not in czarne_pozycje:
+                        if (6, 7) not in biale_pozycje and (5, 7) not in biale_pozycje and (4, 7) not in biale_pozycje:
+                            return 3
+            if vec_x == -2 and vec_y == 0:
+                if not any(move[0] == 'czarne' and move[1] == 'W' and move[2] == 0 for move in moves):
+                    if (1, 7) not in czarne_pozycje and (2, 7) not in czarne_pozycje:
+                        if (1, 7) not in biale_pozycje and (2, 7) not in biale_pozycje:
+                            return 3
 
 
 def check_D(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor):

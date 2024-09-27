@@ -1,4 +1,3 @@
-import legalnosc
 import move
 import szach
 def pozycje(biale_figury, czarne_figury):
@@ -21,3 +20,7 @@ def ruch(biale_figury, czarne_figury, x, y, vec_x, vec_y, tura, moves):
     if move.move(biale_figury, czarne_figury, biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, tura, moves):
         return 1
 
+def mat(biale_figury, czarne_figury, x, y, vec_x, vec_y, tura, moves):
+    biale_pozycje, czarne_pozycje = pozycje(biale_figury, czarne_figury)
+    if szach.check_mat(biale_figury, czarne_figury, biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, tura, moves):
+        return 1
