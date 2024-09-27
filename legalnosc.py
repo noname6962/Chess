@@ -1,4 +1,4 @@
-def kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje):
+def kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje, kolor):
     xx, yy = 0, 0
     if vec_x > 1 or vec_x < -1 or vec_y > 1 or vec_y < -1:
         while xx <= vec_x - 2 or xx >= vec_x + 2 or yy <= vec_y - 2 or yy >= vec_y + 2:
@@ -13,8 +13,12 @@ def kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje):
 
             if (x+xx, y+yy) in biale_pozycje or (x+xx, y+yy) in czarne_pozycje:
                 return False
-
-    return True
+    if kolor == 'biale':
+        if (x+vec_x, y+vec_y) not in biale_pozycje:
+            return 1
+    if kolor == 'czarne':
+        if (x+vec_x, y+vec_y) not in czarne_pozycje:
+            return 1
 
 
 def check_check(biale_figury, czarne_figury, biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, tura, moves):
@@ -60,7 +64,7 @@ def check_P(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor, moves):
                 return 2
         #ruchy pionka o 2 pola
         if y == 1 and vec_y == 2 and vec_x == 0:
-            if kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje):
+            if (x, y+1) not in biale_pozycje and (x, y+1) not in czarne_pozycje:
                 if (x, y+2) not in biale_pozycje and (x, y+2) not in czarne_pozycje:
                     return 1
         #ruch o 1 pole
@@ -79,7 +83,7 @@ def check_P(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor, moves):
                 return 2
         #ruchy pionka o 2 pola
         if y == 6 and vec_y == -2 and vec_x == 0:
-            if kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje):
+            if (x, y-1) not in biale_pozycje and (x, y-1) not in czarne_pozycje:
                 if (x, y-2) not in biale_pozycje and (x, y-2) not in czarne_pozycje:
                     return 1
         #ruch o 1 pole
@@ -93,46 +97,25 @@ def check_P(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor, moves):
 
 
 def check_W(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor):
-    if kolor == 'biale':
-        #ruchy wiezy
-        if vec_x == 0 or vec_y == 0:
-            if kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje):
-                if (x+vec_x, y+vec_y) not in biale_pozycje:
-                    return 1
-    if kolor == 'czarne':
-        #ruchy wiezy
-        if vec_x == 0 or vec_y == 0:
-            if kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje):
-                if (x+vec_x, y+vec_y) not in czarne_pozycje:
-                    return 1
+    if vec_x == 0 or vec_y == 0:
+        if kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje, kolor):
+            return 1
 
 
 def check_S(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor):
-    if kolor == 'biale':
-        #ruchy skoczka
-        if abs(vec_x) == 1 and abs(vec_y) == 2 or abs(vec_x) == 2 and abs(vec_y) == 1:
+    if abs(vec_x) == 1 and abs(vec_y) == 2 or abs(vec_x) == 2 and abs(vec_y) == 1:
+        if kolor == 'biale':
             if (x+vec_x, y+vec_y) not in biale_pozycje:
                 return 1
-    if kolor == 'czarne':
-        #ruchy skoczka
-        if abs(vec_x) == 1 and abs(vec_y) == 2 or abs(vec_x) == 2 and abs(vec_y) == 1:
+        if kolor == 'czarne':
             if (x+vec_x, y+vec_y) not in czarne_pozycje:
                 return 1
 
 
 def check_G(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor):
-    if kolor == 'biale':
-        #ruchy gonca
-        if abs(vec_x) == abs(vec_y):
-            if kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje):
-                if (x+vec_x, y+vec_y) not in biale_pozycje:
-                    return 1
-    if kolor == 'czarne':
-        #ruchy gonca
-        if abs(vec_x) == abs(vec_y):
-            if kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje):
-                if (x+vec_x, y+vec_y) not in czarne_pozycje:
-                    return 1
+    if abs(vec_x) == abs(vec_y):
+        if kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje, kolor):
+            return 1
 
 
 def check_K(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor,moves):
@@ -171,15 +154,6 @@ def check_K(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor,moves):
 
 
 def check_D(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor):
-    if kolor == 'biale':
-        #ruchy damy
-        if abs(vec_x) == abs(vec_y) or vec_x == 0 or vec_y == 0:
-            if kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje):
-                if (x+vec_x, y+vec_y) not in biale_pozycje:
-                    return 1
-    if kolor == 'czarne':
-        #ruchy damy
-        if abs(vec_x) == abs(vec_y) or vec_x == 0 or vec_y == 0:
-            if kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje):
-                if (x+vec_x, y+vec_y) not in czarne_pozycje:
-                    return 1
+    if abs(vec_x) == abs(vec_y) or vec_x == 0 or vec_y == 0:
+        if kolizja(x, y, vec_x, vec_y, biale_pozycje, czarne_pozycje, kolor):
+            return 1

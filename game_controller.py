@@ -1,6 +1,5 @@
 import game_view
 import game_model
-import kontrola
 import pygame
 
 # pygame setup
@@ -35,13 +34,13 @@ while running:
             press_x, press_y = pygame.mouse.get_pos()
         elif event.type == pygame.MOUSEBUTTONUP:
             release_x, release_y = pygame.mouse.get_pos()
-            press_x, press_y, release_x, release_y, vec_x, vec_y = kontrola.przesuniecie(press_x, press_y, release_x, release_y)
+            press_x, press_y, release_x, release_y, vec_x, vec_y = game_model.przesuniecie(press_x, press_y, release_x, release_y)
             if game_model.ruch(Biale_figury, Czarne_figury, press_x, press_y, vec_x, vec_y, tura, moves):
                 tura += 1
                 print(moves)
                 game_view.odswiezanie(screen, Biale_figury, Czarne_figury)
                 pygame.display.flip()
-                if game_model.mat(Biale_figury, Czarne_figury, press_x, press_y, vec_x, vec_y, tura, moves):
+                if game_model.mat(Biale_figury, Czarne_figury, tura, moves):
                     running = False
 
 

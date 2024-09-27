@@ -5,7 +5,7 @@ def move(biale_figury, czarne_figury, biale_pozycje, czarne_pozycje, x, y, vec_x
     legality = legalnosc.check_check(biale_figury, czarne_figury, biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, tura, moves)
 
     if legality == 1 or legality == 2 or legality == 3:
-        if szach.check_szach(biale_figury, czarne_figury, biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, tura, moves) != 1:
+        if szach.check_szach(biale_figury, czarne_figury, x, y, vec_x, vec_y, tura, moves) != 1:
             if tura % 2 == 0:
                 for i, figura in enumerate(biale_figury):
                     # Convert tuple to list
