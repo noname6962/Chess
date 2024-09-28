@@ -14,6 +14,7 @@ czarny_goniec = pygame.image.load('obrazy/czarny_G.png')
 czarny_krol = pygame.image.load('obrazy/czarny_K.png')
 czarna_dama = pygame.image.load('obrazy/czarny_D.png')
 
+
 def odswiezanie(screen, biale_figury, czarne_figury):
     for i in range(8):
         for j in range(8):

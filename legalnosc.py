@@ -118,7 +118,7 @@ def check_G(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor):
             return 1
 
 
-def check_K(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor,moves):
+def check_K(biale_pozycje, czarne_pozycje, x, y, vec_x, vec_y, kolor, moves):
     if kolor == 'biale':
         #ruchy krola
         if abs(vec_x) <= 1 and abs(vec_y) <= 1:
