@@ -10,3 +10,4 @@ just chess with all the rules implemented to play just run game_controller.py af
 
 ## to do
 - 50 turns without capture limit
+- Mobile app
